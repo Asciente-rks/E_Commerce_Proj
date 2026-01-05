@@ -10,6 +10,14 @@ namespace backend.Controllers
     {
         private static readonly List<Product> Products = new List<Product>();
 
+        [HttpPost]
+        public IActionResult Create(Product newProduct)
+        {
+            newProduct.ID = Guid.NewGuid();
+            Products.Add(newProduct);
+            return CreatedAtAction(nameof(GetByID), new { id = newProduct.ID }, newProduct);
+        }
+
         [HttpGet]
         public IActionResult GetAll()
         {
